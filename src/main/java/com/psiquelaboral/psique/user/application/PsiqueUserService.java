@@ -3,6 +3,7 @@ package com.psiquelaboral.psique.user.application;
 import com.psiquelaboral.psique.user.domain.dao.IPsiqueUserDao;
 import com.psiquelaboral.psique.user.domain.model.PsiqueUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 public class PsiqueUserService implements IPsiqueUserService {
 
     private final IPsiqueUserDao psiqueUserDao;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Create the user and all the process
@@ -18,6 +20,7 @@ public class PsiqueUserService implements IPsiqueUserService {
      */
     public void signup(PsiqueUser user){
         user.setCreatedAt(LocalDateTime.now());
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         psiqueUserDao.create(user);
     }
 }
