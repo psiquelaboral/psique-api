@@ -1,4 +1,4 @@
-package com.psiquelaboral.psique.user.infrastructure.config;
+package com.psiquelaboral.psique.shared.infrastructure;
 
 import com.psiquelaboral.psique.user.application.IPsiqueUserService;
 import com.psiquelaboral.psique.user.application.PsiqueUserService;
@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AdaptersConfig {
 
     @Bean
-    IPsiqueUserService psiqueUserService(final IPsiqueUserDao userDao,
+    public IPsiqueUserService psiqueUserService(final IPsiqueUserDao userDao,
                                          final PasswordEncoder passwordEncoder){
         return new PsiqueUserService(userDao, passwordEncoder);
     }

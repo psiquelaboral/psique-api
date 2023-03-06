@@ -6,6 +6,8 @@ import com.psiquelaboral.psique.user.infrastructure.mapper.PsiqueUserMapper;
 import com.psiquelaboral.psique.user.infrastructure.springdata.entity.PsiqueUserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,7 +19,10 @@ public class PsiqueUserMongoDBImpl implements IPsiqueUserDao {
 
   @Override
   public PsiqueUser getByEmail(String email) {
-    return null;
+    Query query = new Query();
+    query.addCriteria(Criteria.where("email").is(email));
+    PsiqueUserEntity userEntity = mongoTemplate.findOne(query, PsiqueUserEntity.class);
+    return userMapper.toModel(userEntity);
   }
 
   @Override

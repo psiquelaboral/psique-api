@@ -32,4 +32,9 @@ public class PsiqueUserService implements IPsiqueUserService {
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         psiqueUserDao.create(user);
     }
+
+    @Override
+    public PsiqueUser getByEmail(String email) {
+        return this.psiqueUserDao.getByEmail(email);
+    }
 }
