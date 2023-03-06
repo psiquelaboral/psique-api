@@ -1,6 +1,7 @@
 package com.psiquelaboral.psique.user.domain.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -18,7 +19,7 @@ public class PsiqueUser {
   private String name;
   private String email;
   private String password;
-  private List<Role> roles;
+  private List<Role> roles = new ArrayList<>();
   private LocalDateTime updatedAt;
   private LocalDateTime createdAt;
 }

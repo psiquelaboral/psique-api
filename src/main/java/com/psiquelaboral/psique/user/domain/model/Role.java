@@ -11,18 +11,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
-  private String id;
   private RoleName name;
   private LocalDateTime createdAt;
-
   public Role(RoleName name) {
     this.name = name;
   }
-
   public enum RoleName{
     ROLE_GOD,
     ROLE_ADMIN,
     ROLE_RH,
-    ROLE_EMPLOY
+    ROLE_EMPLOYEE
   }
 }
