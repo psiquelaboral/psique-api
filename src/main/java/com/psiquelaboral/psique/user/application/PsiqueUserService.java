@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class PsiqueUserService implements IPsiqueUserService {
@@ -17,9 +18,10 @@ public class PsiqueUserService implements IPsiqueUserService {
     /**
      * Create the user and all the process
      * to apply the signup on the application.
+     *
      * @param user The information of the new user
      */
-    public void signup(PsiqueUser user){
+    public void signup(PsiqueUser user) {
 
         //create main role
         Role role = new Role();
@@ -36,5 +38,15 @@ public class PsiqueUserService implements IPsiqueUserService {
     @Override
     public PsiqueUser getByEmail(String email) {
         return this.psiqueUserDao.getByEmail(email);
+    }
+
+    @Override
+    public PsiqueUser getById(String id) {
+        return this.psiqueUserDao.getById(id);
+    }
+
+    @Override
+    public List<PsiqueUser> listAll() {
+        return this.psiqueUserDao.listAll();
     }
 }

@@ -12,9 +12,8 @@ public class AdaptersConfig {
 
     @Bean
     public IPsiqueUserService psiqueUserService(final IPsiqueUserDao userDao,
-                                         final PasswordEncoder passwordEncoder){
+                                                final PasswordEncoder passwordEncoder) {
         return new PsiqueUserService(userDao, passwordEncoder);
     }
-
 
 }

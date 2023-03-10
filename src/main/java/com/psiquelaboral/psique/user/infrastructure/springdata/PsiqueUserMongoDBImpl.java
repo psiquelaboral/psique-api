@@ -10,26 +10,45 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 @RequiredArgsConstructor
 public class PsiqueUserMongoDBImpl implements IPsiqueUserDao {
 
-  private final MongoTemplate mongoTemplate;
-  private final PsiqueUserMapper userMapper;
+    private final MongoTemplate mongoTemplate;
+    private final PsiqueUserMapper userMapper;
 
-  @Override
-  public PsiqueUser getByEmail(String email) {
-    Query query = new Query();
-    query.addCriteria(Criteria.where("email").is(email));
-    PsiqueUserEntity userEntity = mongoTemplate.findOne(query, PsiqueUserEntity.class);
-    return userMapper.toModel(userEntity);
-  }
+    @Override
+    public void create(PsiqueUser user) {
+        PsiqueUserEntity entity = this.userMapper.toEntity(user);
+        this.mongoTemplate.insert(entity);
+        System.out.println(entity);
+        user.setId(entity.getId());
+    }
 
-  @Override
-  public void create(PsiqueUser user) {
-    PsiqueUserEntity entity = this.userMapper.toEntity(user);
-    this.mongoTemplate.insert(entity);
-    System.out.println(entity);
-    user.setId(entity.getId());
-  }
+    @Override
+    public PsiqueUser getByEmail(String email) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("email").is(email));
+        PsiqueUserEntity userEntity = mongoTemplate.findOne(query, PsiqueUserEntity.class);
+        return userMapper.toModel(userEntity);
+    }
+
+    @Override
+    public PsiqueUser getById(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        PsiqueUserEntity userEntity = this.mongoTemplate.findOne(query, PsiqueUserEntity.class);
+        return this.userMapper.toModel(userEntity);
+    }
+
+    @Override
+    public List<PsiqueUser> listAll() {
+        return this.mongoTemplate.findAll(PsiqueUserEntity.class)
+                .stream().map(this.userMapper::toModel)
+                .collect(Collectors.toList());
+    }
+    
 }

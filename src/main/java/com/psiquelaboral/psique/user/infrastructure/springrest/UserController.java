@@ -5,26 +5,32 @@ import com.psiquelaboral.psique.user.domain.model.PsiqueUser;
 import com.psiquelaboral.psique.user.infrastructure.mapper.PsiqueUserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
     private final IPsiqueUserService userService;
     private final PsiqueUserMapper userMapper;
 
-    @PostMapping("/signup")
-    public ResponseEntity<PsiqueUser> signup(@RequestBody PsiqueUser user){
+    @PostMapping("/user/signup")
+    public ResponseEntity<PsiqueUser> signup(@RequestBody PsiqueUser user) {
         this.userService.signup(user);
         return ResponseEntity.ok(this.userMapper.toUserSummary(user));
     }
 
-    public ResponseEntity<?> getUserById(){
-        return null;
+    @GetMapping("/user/{id}")
+    public ResponseEntity<PsiqueUser> getUserById(@PathVariable String id) {
+        PsiqueUser user = this.userService.getById(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<PsiqueUser>> listAll() {
+        List<PsiqueUser> users = this.userService.listAll();
+        return ResponseEntity.ok(users);
     }
 }
