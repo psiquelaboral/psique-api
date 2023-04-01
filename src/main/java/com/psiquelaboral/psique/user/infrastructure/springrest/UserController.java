@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,12 +26,17 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity<PsiqueUser> getUserById(@PathVariable String id) {
         PsiqueUser user = this.userService.getById(id);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(this.userMapper.toUserSummary(user));
     }
 
     @GetMapping("/user")
     public ResponseEntity<List<PsiqueUser>> listAll() {
         List<PsiqueUser> users = this.userService.listAll();
-        return ResponseEntity.ok(users);
+
+        var usersSummary = users.stream()
+                .map(this.userMapper::toUserSummary)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(usersSummary);
     }
 }

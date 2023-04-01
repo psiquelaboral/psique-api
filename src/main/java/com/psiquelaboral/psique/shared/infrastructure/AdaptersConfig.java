@@ -1,5 +1,8 @@
 package com.psiquelaboral.psique.shared.infrastructure;
 
+import com.psiquelaboral.psique.quiz.application.IQuizService;
+import com.psiquelaboral.psique.quiz.application.QuizService;
+import com.psiquelaboral.psique.quiz.domain.dao.IQuizDao;
 import com.psiquelaboral.psique.user.application.IPsiqueUserService;
 import com.psiquelaboral.psique.user.application.PsiqueUserService;
 import com.psiquelaboral.psique.user.domain.dao.IPsiqueUserDao;
@@ -14,6 +17,11 @@ public class AdaptersConfig {
     public IPsiqueUserService psiqueUserService(final IPsiqueUserDao userDao,
                                                 final PasswordEncoder passwordEncoder) {
         return new PsiqueUserService(userDao, passwordEncoder);
+    }
+
+    @Bean
+    public IQuizService quizService(final IQuizDao quizDao) {
+        return new QuizService(quizDao);
     }
 
 }
