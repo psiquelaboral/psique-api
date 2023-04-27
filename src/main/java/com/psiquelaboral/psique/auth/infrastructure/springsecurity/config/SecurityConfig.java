@@ -16,9 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -27,9 +24,9 @@ public class SecurityConfig {
     private final JWTAccessDeniedHandler jwtAccessDeniedHandler;
     private final JWTTokenFilter jwtFilter;
 
-    private final List<String> ALL_ROLES = Arrays.asList("GOD", "ADMIN", "RH", "EMPLOYEE");
-    private final List<String> RH_ROLES = Arrays.asList("GOD", "ADMIN", "RH");
-    private final List<String> ADMIN_ROLES = Arrays.asList("GOD", "ADMIN");
+    private static final String[] ROLE_EMPLOYEE = {"GOD", "ADMIN", "RH", "EMPLOYEE"};
+    private static final String[] ROLE_RH = {"GOD", "ADMIN", "RH"};
+    private static final String[] ROLE_ADMIN = {"GOD", "ADMIN"};
 
 
     @Bean
@@ -46,9 +43,9 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/user/**").hasAnyRole("GOD", "ADMIN", "RH")
+                .authorizeHttpRequests()
+                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/user/**").hasAnyRole(ROLE_RH)
                 .and()
                 .build();
     }
