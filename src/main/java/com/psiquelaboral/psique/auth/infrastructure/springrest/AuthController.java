@@ -42,6 +42,7 @@ public class AuthController {
         //Create the response
         AuthResponse response = AuthResponse.builder()
                 .accessToken(token)
+                .id(authenticatedUser.getId())
                 .build();
 
         return ResponseEntity.ok(response);
