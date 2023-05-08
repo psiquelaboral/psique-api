@@ -23,11 +23,11 @@ public class AuthController {
     private final JWTService jwtService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest){
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
 
         //Get the current user
         PsiqueUser authenticatedUser = this.userService.getByEmail(authRequest.getEmail());
-        if(authenticatedUser == null) {
+        if (authenticatedUser == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access Denied");
         }
 
@@ -40,10 +40,6 @@ public class AuthController {
                 .build();
 
         return ResponseEntity.ok(response);
-    }
-
-    public ResponseEntity<?> signup(){
-        return null;
     }
 
 }

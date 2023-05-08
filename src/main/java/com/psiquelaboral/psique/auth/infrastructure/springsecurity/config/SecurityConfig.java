@@ -5,6 +5,7 @@ import com.psiquelaboral.psique.auth.infrastructure.springsecurity.error.JWTAuth
 import com.psiquelaboral.psique.auth.infrastructure.springsecurity.filter.JWTTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -46,6 +47,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/user/**").hasAnyRole(ROLE_RH)
+                .requestMatchers(HttpMethod.GET, "/quiz/**").hasAnyRole(ROLE_EMPLOYEE)
+                .requestMatchers(HttpMethod.POST, "/quiz/**").hasAnyRole(ROLE_ADMIN)
                 .and()
                 .build();
     }
