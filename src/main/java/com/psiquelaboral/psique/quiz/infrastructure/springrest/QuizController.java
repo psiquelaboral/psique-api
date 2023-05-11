@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 public class QuizController {
-    private final IQuizService quizService;
 
+    private final IQuizService quizService;
 
     @GetMapping("/quiz/all")
     public ResponseEntity<List<Quiz>> listAll() {
