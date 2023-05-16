@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
-public class PsiqueUserMongoDBImpl implements IPsiqueUserDao {
+public class PsiqueUserDaoMongoDBImpl implements IPsiqueUserDao {
 
     private final MongoTemplate mongoTemplate;
     private final PsiqueUserMapper userMapper;
@@ -50,5 +50,5 @@ public class PsiqueUserMongoDBImpl implements IPsiqueUserDao {
                 .stream().map(this.userMapper::toModel)
                 .collect(Collectors.toList());
     }
-    
+
 }

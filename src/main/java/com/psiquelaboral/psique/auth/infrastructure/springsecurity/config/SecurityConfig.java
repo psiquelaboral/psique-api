@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/user/**").hasAnyRole(ROLE_RH)
+                .requestMatchers("/answer/**").hasAnyRole(ROLE_EMPLOYEE)
                 .requestMatchers(HttpMethod.GET, "/quiz/**").hasAnyRole(ROLE_EMPLOYEE)
                 .requestMatchers(HttpMethod.POST, "/quiz/**").hasAnyRole(ROLE_ADMIN)
                 .and()

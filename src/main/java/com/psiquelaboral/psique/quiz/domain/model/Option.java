@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Option {
+    private Long id;
     private String text;
     private String label;
     private Boolean value;

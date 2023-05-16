@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
-public class QuizMongoDBImpl implements IQuizDao {
+public class QuizDaoMongoDBImpl implements IQuizDao {
 
     private final MongoTemplate mongoTemplate;
     private final QuizMapper quizMapper;
@@ -31,7 +31,8 @@ public class QuizMongoDBImpl implements IQuizDao {
     public Quiz getById(String id) {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(id));
-        return this.quizMapper.toModel(mongoTemplate.findOne(query, QuizEntity.class));
+        QuizEntity entity = mongoTemplate.findOne(query, QuizEntity.class);
+        return this.quizMapper.toModel(entity);
     }
 
     @Override

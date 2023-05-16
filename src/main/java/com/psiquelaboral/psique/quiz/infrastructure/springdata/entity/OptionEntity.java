@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OptionEntity {
+    private Long id;
     private String text;
     private String label;
     private Boolean value;

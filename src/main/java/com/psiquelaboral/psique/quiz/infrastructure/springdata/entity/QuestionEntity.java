@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionEntity {
+    private Long id;
     private String text;
     private Long itemId;
     private String instructions;
