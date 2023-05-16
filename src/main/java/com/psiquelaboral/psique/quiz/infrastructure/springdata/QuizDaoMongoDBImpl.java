@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
-public class QuizDaoMongoDBImpl implements IQuizDao {
+public class QuizDaoMongoDBImpl implements IQuizDao<String> {
 
     private final MongoTemplate mongoTemplate;
     private final QuizMapper quizMapper;

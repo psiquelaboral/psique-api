@@ -4,10 +4,10 @@ import com.psiquelaboral.psique.quiz.domain.model.Quiz;
 
 import java.util.List;
 
-public interface IQuizDao {
+public interface IQuizDao<K> {
     List<Quiz> listAll();
 
-    Quiz getById(String id);
+    Quiz getById(K id);
 
     void create(Quiz quiz);
 }

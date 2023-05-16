@@ -4,12 +4,12 @@ import com.psiquelaboral.psique.user.domain.model.PsiqueUser;
 
 import java.util.List;
 
-public interface IPsiqueUserDao {
+public interface IPsiqueUserDao<K> {
     void create(PsiqueUser user);
 
-    PsiqueUser getByEmail(String email);
+    PsiqueUser getByEmail(K email);
 
-    PsiqueUser getById(String id);
+    PsiqueUser getById(K id);
 
     List<PsiqueUser> listAll();
 }
