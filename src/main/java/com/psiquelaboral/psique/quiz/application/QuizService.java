@@ -10,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuizService implements IQuizService {
 
-    private final IQuizDao quizDao;
+    private final IQuizDao<String> quizDao;
 
     @Override
     public List<Quiz> listAll() {

@@ -20,11 +20,9 @@ public class AnswerController {
     public ResponseEntity<Answer> initializeAnswer(@RequestBody Answer answer) {
         Answer currentAnswer = this.answerService.retrieveAnswer(answer.getQuizId(), answer.getEmployeeId());
         if (currentAnswer != null) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Answer is already created for provided quizId and employeeId"
-            );
+            return new ResponseEntity<>(currentAnswer, HttpStatus.OK);
         }
+
         this.answerService.initializeAnswer(answer);
         return new ResponseEntity<>(answer, HttpStatus.CREATED);
     }
@@ -34,7 +32,7 @@ public class AnswerController {
                                                    @RequestBody Response response) {
         //validate quiz exist
         this.answerService.registryAnswer(quizId, response);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/answer")

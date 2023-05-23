@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PsiqueUserService implements IPsiqueUserService {
 
-    private final IPsiqueUserDao psiqueUserDao;
+    private final IPsiqueUserDao<String> psiqueUserDao;
     private final PasswordEncoder passwordEncoder;
 
     /**
