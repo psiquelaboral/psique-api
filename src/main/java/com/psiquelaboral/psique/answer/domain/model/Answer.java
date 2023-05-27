@@ -18,7 +18,13 @@ public class Answer {
     private String employeeId;
     private String name;
     private String description;
+    private Status status;
     private List<Response> responses;
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
+
+    public enum Status {
+        DONE,
+        IN_PROGRESS
+    }
 }

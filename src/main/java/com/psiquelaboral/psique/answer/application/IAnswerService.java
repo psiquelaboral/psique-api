@@ -9,4 +9,8 @@ public interface IAnswerService<K> {
     void registryAnswer(K answerId, Response selectedResponse);
 
     Answer retrieveAnswer(K quizId, K employeeId);
+
+    Answer retrieveAnswer(K answerId);
+
+    Answer finalizeAnswer(K answerId);
 }

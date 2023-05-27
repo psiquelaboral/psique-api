@@ -48,4 +48,10 @@ public class AnswerController {
         return new ResponseEntity<>(answer, HttpStatus.OK);
     }
 
+    @PutMapping("/answer/finalizer/{answerId}")
+    public ResponseEntity<Answer> finalizeAnswer(@PathVariable String answerId) {
+        Answer response = this.answerService.finalizeAnswer(answerId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

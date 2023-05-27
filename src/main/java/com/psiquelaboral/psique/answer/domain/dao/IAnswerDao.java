@@ -9,4 +9,8 @@ public interface IAnswerDao<K> {
     void updateResponses(K answerId, Response response);
 
     Answer getByQuizIdAndEmployeeId(K quizId, K employeeId);
+
+    Answer getById(K answerId);
+
+    void updateAnswerStatus(K answerId, Answer.Status status);
 }

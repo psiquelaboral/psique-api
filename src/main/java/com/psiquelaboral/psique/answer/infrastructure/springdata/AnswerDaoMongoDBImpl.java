@@ -44,4 +44,20 @@ public class AnswerDaoMongoDBImpl implements IAnswerDao<String> {
         AnswerEntity entity = this.mongoTemplate.findOne(query, AnswerEntity.class);
         return this.answerMapper.toModel(entity);
     }
+
+    @Override
+    public Answer getById(String answerId) {
+        Query query = new Query()
+                .addCriteria(Criteria.where("id").is(answerId));
+        AnswerEntity entity = this.mongoTemplate.findOne(query, AnswerEntity.class);
+        return this.answerMapper.toModel(entity);
+    }
+
+    @Override
+    public void updateAnswerStatus(String answerId, Answer.Status status) {
+        Query query = new Query()
+                .addCriteria(Criteria.where("id").is(answerId));
+        Update update = new Update().set("status", status.toString());
+        this.mongoTemplate.updateFirst(query, update, AnswerEntity.class);
+    }
 }

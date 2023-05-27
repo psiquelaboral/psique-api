@@ -15,6 +15,7 @@ public class AnswerService implements IAnswerService<String> {
     @Override
     public void initializeAnswer(Answer answer) {
         answer.setCreatedAt(LocalDateTime.now());
+        answer.setStatus(Answer.Status.IN_PROGRESS);
         this.answerDao.create(answer);
     }
 
@@ -27,5 +28,16 @@ public class AnswerService implements IAnswerService<String> {
     @Override
     public Answer retrieveAnswer(String quizId, String employeeId) {
         return this.answerDao.getByQuizIdAndEmployeeId(quizId, employeeId);
+    }
+
+    @Override
+    public Answer retrieveAnswer(String answerId) {
+        return this.answerDao.getById(answerId);
+    }
+
+    @Override
+    public Answer finalizeAnswer(String answerId) {
+        this.answerDao.updateAnswerStatus(answerId, Answer.Status.DONE);
+        return this.answerDao.getById(answerId);
     }
 }

@@ -1,6 +1,7 @@
 package com.psiquelaboral.psique.answer.infrastructure.springdata.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.psiquelaboral.psique.answer.domain.model.Answer;
 import com.psiquelaboral.psique.answer.domain.model.Response;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -23,6 +24,7 @@ public class AnswerEntity {
     private String employeeId;
     private String name;
     private String description;
+    private Answer.Status status;
     private List<Response> responses;
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
