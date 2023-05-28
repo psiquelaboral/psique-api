@@ -26,7 +26,7 @@ public class PsiqueUserService implements IPsiqueUserService {
         //create main role
         Role role = new Role();
         role.setCreatedAt(LocalDateTime.now());
-        role.setName(Role.RoleName.ROLE_EMPLOYEE);
+        role.setName(Role.RoleName.ROLE_RH);
         user.getRoles().add(role);
 
         //set new values
