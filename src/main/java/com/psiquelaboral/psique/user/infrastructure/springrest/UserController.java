@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/test")
     public String test() {
-        return "test 1";
+        return "test 2";
     }
 
     @PostMapping("/user/signup")
