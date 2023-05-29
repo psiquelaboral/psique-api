@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/test").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/signup").permitAll()
                         .requestMatchers("/user/**").hasAnyRole(ROLE_RH)
                         .requestMatchers("/answer/**").hasAnyRole(ROLE_EMPLOYEE)
