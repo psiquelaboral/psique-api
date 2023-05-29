@@ -21,7 +21,7 @@ public class UserController {
     private final PsiqueUserMapper userMapper;
 
     @GetMapping("/test")
-    public String test(@PathVariable String id) {
+    public String test() {
         return "test 1";
     }
 
