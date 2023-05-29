@@ -20,6 +20,11 @@ public class UserController {
     private final IPsiqueUserService userService;
     private final PsiqueUserMapper userMapper;
 
+    @GetMapping("/test")
+    public String test(@PathVariable String id) {
+        return "test 1";
+    }
+
     @PostMapping("/user/signup")
     public ResponseEntity<PsiqueUser> signup(@RequestBody PsiqueUser user) {
         this.userService.signup(user);
