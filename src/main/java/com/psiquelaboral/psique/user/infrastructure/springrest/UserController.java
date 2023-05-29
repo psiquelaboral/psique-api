@@ -4,8 +4,10 @@ import com.psiquelaboral.psique.user.application.IPsiqueUserService;
 import com.psiquelaboral.psique.user.domain.model.PsiqueUser;
 import com.psiquelaboral.psique.user.infrastructure.mapper.PsiqueUserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +34,9 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity<PsiqueUser> getUserById(@PathVariable String id) {
         PsiqueUser user = this.userService.getById(id);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found: " + id);
+        }
         return ResponseEntity.ok(this.userMapper.toUserSummary(user));
     }
 

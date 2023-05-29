@@ -3,8 +3,10 @@ package com.psiquelaboral.psique.quiz.infrastructure.springrest;
 import com.psiquelaboral.psique.quiz.application.IQuizService;
 import com.psiquelaboral.psique.quiz.domain.model.Quiz;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -24,6 +26,9 @@ public class QuizController {
     @GetMapping("/quiz/{id}")
     public ResponseEntity<Quiz> getById(@PathVariable String id) {
         Quiz quiz = this.quizService.getById(id);
+        if (quiz == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz not found: " + id);
+        }
         return ResponseEntity.ok(quiz);
     }
 
