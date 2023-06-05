@@ -32,6 +32,8 @@ public class PsiqueUserService implements IPsiqueUserService {
         //set new values
         user.setCreatedAt(LocalDateTime.now());
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+        user.setEmail(user.getEmail().toLowerCase());
+        user.setName(user.getName().toLowerCase());
         psiqueUserDao.create(user);
     }
 
