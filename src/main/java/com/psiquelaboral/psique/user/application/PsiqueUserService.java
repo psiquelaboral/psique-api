@@ -1,5 +1,7 @@
 package com.psiquelaboral.psique.user.application;
 
+import com.psiquelaboral.psique.company.application.CompanyService;
+import com.psiquelaboral.psique.company.domain.model.Company;
 import com.psiquelaboral.psique.user.domain.dao.IPsiqueUserDao;
 import com.psiquelaboral.psique.user.domain.model.PsiqueUser;
 import com.psiquelaboral.psique.user.domain.model.Role;
@@ -13,6 +15,7 @@ import java.util.List;
 public class PsiqueUserService implements IPsiqueUserService {
 
     private final IPsiqueUserDao<String> psiqueUserDao;
+    private final CompanyService companyService;
     private final PasswordEncoder passwordEncoder;
 
     /**
@@ -34,7 +37,20 @@ public class PsiqueUserService implements IPsiqueUserService {
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
         user.setEmail(user.getEmail().toLowerCase());
         user.setName(user.getName().toLowerCase());
-        psiqueUserDao.create(user);
+
+        this.psiqueUserDao.create(user);
+
+        if (user.getCompanyId() == null) {
+            //create company
+            Company company = new Company();
+            company.setRepresentativeId(user.getId());
+            company.setCreatedAt(LocalDateTime.now());
+            company.setName(user.getName());
+            this.companyService.createUseCase(company);
+
+            user.setCompanyId(company.getId());
+            this.psiqueUserDao.update(user);
+        }
     }
 
     @Override
@@ -51,4 +67,5 @@ public class PsiqueUserService implements IPsiqueUserService {
     public List<PsiqueUser> listAll() {
         return this.psiqueUserDao.listAll();
     }
+
 }

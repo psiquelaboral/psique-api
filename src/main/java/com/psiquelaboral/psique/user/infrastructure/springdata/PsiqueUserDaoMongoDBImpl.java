@@ -29,6 +29,12 @@ public class PsiqueUserDaoMongoDBImpl implements IPsiqueUserDao<String> {
     }
 
     @Override
+    public void update(PsiqueUser user) {
+        PsiqueUserEntity entity = this.userMapper.toEntity(user);
+        this.mongoTemplate.save(entity);
+    }
+
+    @Override
     public PsiqueUser getByEmail(String email) {
         Query query = new Query();
         query.addCriteria(Criteria.where("email").is(email));
@@ -47,8 +53,8 @@ public class PsiqueUserDaoMongoDBImpl implements IPsiqueUserDao<String> {
     @Override
     public List<PsiqueUser> listAll() {
         return this.mongoTemplate.findAll(PsiqueUserEntity.class)
-                .stream().map(this.userMapper::toModel)
-                .collect(Collectors.toList());
+            .stream().map(this.userMapper::toModel)
+            .collect(Collectors.toList());
     }
 
 }

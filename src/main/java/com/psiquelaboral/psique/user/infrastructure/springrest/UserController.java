@@ -40,8 +40,8 @@ public class UserController {
         List<PsiqueUser> users = this.userService.listAll();
 
         var usersSummary = users.stream()
-                .map(this.userMapper::toUserSummary)
-                .collect(Collectors.toList());
+            .map(this.userMapper::toUserSummary)
+            .collect(Collectors.toList());
 
         return ResponseEntity.ok(usersSummary);
     }

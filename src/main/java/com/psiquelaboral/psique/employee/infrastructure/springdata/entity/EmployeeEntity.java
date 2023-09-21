@@ -1,28 +1,25 @@
-package com.psiquelaboral.psique.user.infrastructure.springdata.entity;
+package com.psiquelaboral.psique.employee.infrastructure.springdata.entity;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Setter
 @Getter
-@Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@Document("psiqueUsers")
-public class PsiqueUserEntity {
-    @Id
+@Document("employees")
+public class EmployeeEntity {
     private String id;
     private String companyId;
+    private Integer age;
     private String name;
     private String email;
     private String picture;
-    private String password;
-    private List<RoleEntity> roles;
+    private Character gender;
+    private String job;
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
 }
