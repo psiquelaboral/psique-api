@@ -2,7 +2,7 @@ package com.psiquelaboral.psique.auth.infrastructure.springsecurity.service;
 
 import com.psiquelaboral.psique.auth.application.IAuthUserManager;
 import com.psiquelaboral.psique.auth.domain.model.AuthenticatedUser;
-import com.psiquelaboral.psique.user.application.PsiqueUserService;
+import com.psiquelaboral.psique.user.application.IPsiqueUserService;
 import com.psiquelaboral.psique.user.domain.model.PsiqueUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthUserManagerSpringSecurityImpl implements IAuthUserManager {
 
-    private final PsiqueUserService userService;
+    private final IPsiqueUserService userService;
 
     @Override
     public PsiqueUser whoAmI() {
