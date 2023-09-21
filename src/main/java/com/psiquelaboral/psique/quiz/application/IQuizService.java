@@ -7,6 +7,8 @@ import java.util.List;
 public interface IQuizService {
     List<Quiz> listAll();
 
+    List<Quiz> listAllResumed();
+    
     Quiz getById(String id);
 
     void create(Quiz quiz);

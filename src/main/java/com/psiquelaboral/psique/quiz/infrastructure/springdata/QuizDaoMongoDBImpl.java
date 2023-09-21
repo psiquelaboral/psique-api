@@ -23,8 +23,16 @@ public class QuizDaoMongoDBImpl implements IQuizDao<String> {
     @Override
     public List<Quiz> listAll() {
         return this.mongoTemplate.findAll(QuizEntity.class)
-                .stream().map(this.quizMapper::toModel)
-                .collect(Collectors.toList());
+            .stream().map(this.quizMapper::toModel)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Quiz> listAllResumed() {
+        Query query = new Query();
+        query.fields().include("name").include("description").include("id").include("companyId");
+        List<QuizEntity> response = mongoTemplate.find(query, QuizEntity.class);
+        return response.stream().map(this.quizMapper::toModel).toList();
     }
 
     @Override
