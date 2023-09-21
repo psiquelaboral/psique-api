@@ -3,6 +3,10 @@ package com.psiquelaboral.psique.shared.infrastructure;
 import com.psiquelaboral.psique.answer.application.AnswerService;
 import com.psiquelaboral.psique.answer.application.IAnswerService;
 import com.psiquelaboral.psique.answer.domain.dao.IAnswerDao;
+import com.psiquelaboral.psique.company.application.CompanyService;
+import com.psiquelaboral.psique.company.domain.dao.ICompanyDao;
+import com.psiquelaboral.psique.employee.application.EmployeeService;
+import com.psiquelaboral.psique.employee.domain.dao.IEmployeeDao;
 import com.psiquelaboral.psique.quiz.application.IQuizService;
 import com.psiquelaboral.psique.quiz.application.QuizService;
 import com.psiquelaboral.psique.quiz.domain.dao.IQuizDao;
@@ -17,13 +21,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AdaptersConfig {
 
     @Bean
-    public IPsiqueUserService psiqueUserService(final IPsiqueUserDao userDao,
+    public IPsiqueUserService psiqueUserService(final IPsiqueUserDao<String> userDao,
+                                                final CompanyService companyService,
                                                 final PasswordEncoder passwordEncoder) {
-        return new PsiqueUserService(userDao, passwordEncoder);
+        return new PsiqueUserService(userDao, companyService, passwordEncoder);
     }
 
     @Bean
-    public IQuizService quizService(final IQuizDao quizDao) {
+    public EmployeeService employeeService(final IEmployeeDao<String> employeeDao) {
+        return new EmployeeService(employeeDao);
+    }
+
+    @Bean
+    public CompanyService companyService(final ICompanyDao<String> companyDao) {
+        return new CompanyService(companyDao);
+    }
+
+    @Bean
+    public IQuizService quizService(final IQuizDao<String> quizDao) {
         return new QuizService(quizDao);
     }
 
@@ -31,5 +46,4 @@ public class AdaptersConfig {
     public IAnswerService<String> answerService(final IAnswerDao<String> answerDao) {
         return new AnswerService(answerDao);
     }
-
 }

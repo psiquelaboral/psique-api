@@ -19,12 +19,7 @@ public class UserController {
 
     private final IPsiqueUserService userService;
     private final PsiqueUserMapper userMapper;
-
-    @GetMapping("/test")
-    public String test() {
-        return "test lalo";
-    }
-
+    
     @PostMapping("/user/signup")
     public ResponseEntity<PsiqueUser> signup(@RequestBody PsiqueUser user) {
         this.userService.signup(user);
@@ -45,8 +40,8 @@ public class UserController {
         List<PsiqueUser> users = this.userService.listAll();
 
         var usersSummary = users.stream()
-                .map(this.userMapper::toUserSummary)
-                .collect(Collectors.toList());
+            .map(this.userMapper::toUserSummary)
+            .collect(Collectors.toList());
 
         return ResponseEntity.ok(usersSummary);
     }

@@ -23,6 +23,12 @@ public class QuizController {
         return ResponseEntity.ok(quizzes);
     }
 
+    @GetMapping("/quiz/all/resume")
+    public ResponseEntity<List<Quiz>> listAllResume() {
+        var quizzes = this.quizService.listAllResumed();
+        return ResponseEntity.ok(quizzes);
+    }
+
     @GetMapping("/quiz/{id}")
     public ResponseEntity<Quiz> getById(@PathVariable String id) {
         Quiz quiz = this.quizService.getById(id);

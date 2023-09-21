@@ -1,27 +1,21 @@
-package com.psiquelaboral.psique.user.domain.model;
+package com.psiquelaboral.psique.company.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Setter
 @Getter
-@Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PsiqueUser {
+public class Company {
     private String id;
-    private String companyId;
+    private String representativeId;
     private String name;
-    private String email;
-    private String password;
-    private String picture;
-    private List<Role> roles = new ArrayList<>();
+    private String RFC;
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
 }

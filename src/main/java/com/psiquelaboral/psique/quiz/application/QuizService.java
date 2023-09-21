@@ -18,6 +18,11 @@ public class QuizService implements IQuizService {
     }
 
     @Override
+    public List<Quiz> listAllResumed() {
+        return this.quizDao.listAllResumed();
+    }
+
+    @Override
     public Quiz getById(String id) {
         return this.quizDao.getById(id);
     }

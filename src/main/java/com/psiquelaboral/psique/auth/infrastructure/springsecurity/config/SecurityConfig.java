@@ -34,26 +34,26 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .cors()
-                .and()
-                .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(handling -> handling
-                        .accessDeniedHandler(jwtAccessDeniedHandler)
-                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                )
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/test").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/user/signup").permitAll()
-                        .requestMatchers("/user/**").hasAnyRole(ROLE_RH)
-                        .requestMatchers("/answer/**").hasAnyRole(ROLE_EMPLOYEE)
-                        .requestMatchers(HttpMethod.GET, "/quiz/**").hasAnyRole(ROLE_EMPLOYEE)
-                        .requestMatchers(HttpMethod.POST, "/quiz/**").hasAnyRole(ROLE_ADMIN)
-                )
-                .sessionManagement(management -> management
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+            .cors()
+            .and()
+            .csrf(AbstractHttpConfigurer::disable)
+            .exceptionHandling(handling -> handling
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            )
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/user/signup").permitAll()
+                .requestMatchers("/user/**", "/employee/**").hasAnyRole(ROLE_RH)
+                .requestMatchers("/answer/**").hasAnyRole(ROLE_EMPLOYEE)
+                .requestMatchers(HttpMethod.GET, "/quiz/**").hasAnyRole(ROLE_EMPLOYEE)
+                .requestMatchers(HttpMethod.POST, "/quiz/**").hasAnyRole(ROLE_ADMIN)
+            )
+            .sessionManagement(management -> management
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+            .build();
     }
 
     @Bean
@@ -64,10 +64,10 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(this.userDetailsService)
-                .passwordEncoder(this.passwordEncoder())
-                .and()
-                .build();
+            .userDetailsService(this.userDetailsService)
+            .passwordEncoder(this.passwordEncoder())
+            .and()
+            .build();
     }
 
 }

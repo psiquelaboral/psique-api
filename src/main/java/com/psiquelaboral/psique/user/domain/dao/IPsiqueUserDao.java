@@ -7,6 +7,8 @@ import java.util.List;
 public interface IPsiqueUserDao<K> {
     void create(PsiqueUser user);
 
+    void update(PsiqueUser user);
+
     PsiqueUser getByEmail(K email);
 
     PsiqueUser getById(K id);
