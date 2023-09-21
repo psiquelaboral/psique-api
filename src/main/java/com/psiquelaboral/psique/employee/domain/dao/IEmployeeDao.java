@@ -7,6 +7,8 @@ import java.util.List;
 public interface IEmployeeDao<K> {
     void create(Employee employee);
 
+    void update(Employee employee);
+
     Employee getById(K id);
 
     Employee getByEmail(String email);

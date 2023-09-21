@@ -27,6 +27,12 @@ public class EmployeeMongoDBDaoImpl implements IEmployeeDao<String> {
     }
 
     @Override
+    public void update(Employee employee) {
+        EmployeeEntity entity = this.employeeMapper.toEntity(employee);
+        this.mongoTemplate.save(entity);
+    }
+
+    @Override
     public Employee getById(String id) {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(id));
