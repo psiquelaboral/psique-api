@@ -42,12 +42,17 @@ public class SecurityConfig {
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
             )
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/quiz/employee/{id}",
+                    "/employee/{employeeId}"
+                ).hasAnyRole(ROLE_EMPLOYEE)
+                .requestMatchers("/answer/**").hasAnyRole(ROLE_EMPLOYEE)
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/user/signup").permitAll()
                 .requestMatchers("/user/**", "/employee/**").hasAnyRole(ROLE_RH)
-                .requestMatchers("/answer/**").hasAnyRole(ROLE_EMPLOYEE)
-                .requestMatchers(HttpMethod.GET, "/quiz/**").hasAnyRole(ROLE_EMPLOYEE)
                 .requestMatchers(HttpMethod.POST, "/quiz/**").hasAnyRole(ROLE_ADMIN)
+
             )
             .sessionManagement(management -> management
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

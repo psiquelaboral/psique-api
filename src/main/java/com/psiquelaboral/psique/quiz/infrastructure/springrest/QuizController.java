@@ -29,7 +29,7 @@ public class QuizController {
         return ResponseEntity.ok(quizzes);
     }
 
-    @GetMapping("/quiz/{id}")
+    @GetMapping("/quiz/employee/{id}")
     public ResponseEntity<Quiz> getById(@PathVariable String id) {
         Quiz quiz = this.quizService.getById(id);
         if (quiz == null) {

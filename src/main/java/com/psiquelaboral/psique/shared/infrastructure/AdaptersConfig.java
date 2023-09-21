@@ -3,6 +3,7 @@ package com.psiquelaboral.psique.shared.infrastructure;
 import com.psiquelaboral.psique.answer.application.AnswerService;
 import com.psiquelaboral.psique.answer.application.IAnswerService;
 import com.psiquelaboral.psique.answer.domain.dao.IAnswerDao;
+import com.psiquelaboral.psique.auth.infrastructure.springsecurity.jwt.JWTService;
 import com.psiquelaboral.psique.company.application.CompanyService;
 import com.psiquelaboral.psique.company.domain.dao.ICompanyDao;
 import com.psiquelaboral.psique.employee.application.EmployeeService;
@@ -28,8 +29,8 @@ public class AdaptersConfig {
     }
 
     @Bean
-    public EmployeeService employeeService(final IEmployeeDao<String> employeeDao) {
-        return new EmployeeService(employeeDao);
+    public EmployeeService employeeService(final IEmployeeDao<String> employeeDao, final JWTService jwtService) {
+        return new EmployeeService(employeeDao, jwtService);
     }
 
     @Bean

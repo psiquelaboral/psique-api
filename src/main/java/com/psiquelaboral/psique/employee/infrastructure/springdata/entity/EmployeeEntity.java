@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class EmployeeEntity {
     private String id;
     private String companyId;
+    private String token;
     private Integer age;
     private String name;
     private String email;
