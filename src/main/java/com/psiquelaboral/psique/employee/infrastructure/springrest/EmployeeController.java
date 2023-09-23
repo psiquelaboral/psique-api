@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -43,5 +45,20 @@ public class EmployeeController {
 
         Employee employee = this.employeeService.getByIdUseCase(employeeId);
         return ResponseEntity.ok(employee);
+    }
+
+    @GetMapping("/company/employee/{companyId}")
+    public ResponseEntity<List<Employee>> createEmployee(@PathVariable String companyId) {
+        PsiqueUser requester = this.authUserManager.whoAmI();
+
+        if (!requester.getCompanyId().equals(companyId)) {
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN,
+                "You don have access to another employee companies"
+            );
+        }
+
+        var employees = this.employeeService.listByCompany(companyId);
+        return ResponseEntity.ok(employees);
     }
 }
