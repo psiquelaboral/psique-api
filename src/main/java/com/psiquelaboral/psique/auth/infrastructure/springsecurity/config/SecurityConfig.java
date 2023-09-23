@@ -50,9 +50,9 @@ public class SecurityConfig {
                 .requestMatchers("/answer/**").hasAnyRole(ROLE_EMPLOYEE)
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/user/signup").permitAll()
-                .requestMatchers("/user/**", "/employee/**").hasAnyRole(ROLE_RH)
+                .requestMatchers("/user/**", "/employee/**", "/company/**").hasAnyRole(ROLE_RH)
+                .requestMatchers("/quiz/**").hasAnyRole(ROLE_RH)
                 .requestMatchers(HttpMethod.POST, "/quiz/**").hasAnyRole(ROLE_ADMIN)
-
             )
             .sessionManagement(management -> management
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

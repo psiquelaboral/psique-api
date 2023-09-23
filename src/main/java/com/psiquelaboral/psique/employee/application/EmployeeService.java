@@ -6,6 +6,7 @@ import com.psiquelaboral.psique.employee.domain.model.Employee;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class EmployeeService {
@@ -24,5 +25,9 @@ public class EmployeeService {
 
     public Employee getByIdUseCase(String employeeId) {
         return this.employeeDao.getById(employeeId);
+    }
+
+    public List<Employee> listByCompany(String companyId) {
+        return this.employeeDao.listByCompany(companyId);
     }
 }
