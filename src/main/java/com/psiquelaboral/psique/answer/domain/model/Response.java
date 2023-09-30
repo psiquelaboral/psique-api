@@ -1,8 +1,8 @@
 package com.psiquelaboral.psique.answer.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.psiquelaboral.psique.quiz.domain.model.Option;
 import com.psiquelaboral.psique.quiz.domain.model.Question;
+import com.psiquelaboral.psique.quiz.domain.model.option.Option;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -18,6 +18,6 @@ public class Response {
     private String itemId;
     private String questionText;
     private Question.Type answerType;
-    private Option selectedOption;
+    private Option<?> selectedOption;
     private LocalDateTime createdAt;
 }

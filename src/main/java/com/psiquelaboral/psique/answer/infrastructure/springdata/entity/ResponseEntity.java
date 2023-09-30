@@ -1,8 +1,8 @@
 package com.psiquelaboral.psique.answer.infrastructure.springdata.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.psiquelaboral.psique.quiz.domain.model.Option;
 import com.psiquelaboral.psique.quiz.domain.model.Question;
+import com.psiquelaboral.psique.quiz.domain.model.option.Option;
 import lombok.*;
 
 import java.time.LocalDateTime;
