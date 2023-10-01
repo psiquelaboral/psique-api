@@ -18,6 +18,7 @@ public class AdviceController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> generalError(Exception e, WebRequest request) {
+        e.printStackTrace();
         ProblemDetail response = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -41,9 +42,9 @@ public class AdviceController {
         problemDetails.setDetail("Check the field errors on this response to see the details of the errors");
 
         List<ErrorDetails> errors = e.getBindingResult().getFieldErrors()
-                .stream()
-                .map(error -> new ErrorDetails(error.getField(), error.getDefaultMessage()))
-                .toList();
+            .stream()
+            .map(error -> new ErrorDetails(error.getField(), error.getDefaultMessage()))
+            .toList();
 
         problemDetails.setProperty("errors", errors);
 

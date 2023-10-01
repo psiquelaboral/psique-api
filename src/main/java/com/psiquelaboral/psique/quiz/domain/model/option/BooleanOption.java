@@ -1,4 +1,4 @@
-package com.psiquelaboral.psique.quiz.domain.model;
+package com.psiquelaboral.psique.quiz.domain.model.option;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -6,12 +6,10 @@ import lombok.*;
 @Setter
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Option {
-    private Long id;
-    private String text;
-    private String label;
+public class BooleanOption extends Option<Boolean> {
     private Boolean value;
 }

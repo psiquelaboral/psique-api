@@ -1,12 +1,11 @@
 package com.psiquelaboral.psique.quiz.infrastructure.mapper;
 
-import com.psiquelaboral.psique.quiz.domain.model.Option;
-import com.psiquelaboral.psique.quiz.infrastructure.springdata.entity.OptionEntity;
-import org.mapstruct.Mapper;
+import com.psiquelaboral.psique.quiz.domain.model.option.Option;
+import com.psiquelaboral.psique.quiz.infrastructure.springdata.entity.option.OptionEntity;
 
-@Mapper(componentModel = "spring")
+//@Mapper(componentModel = "spring")
 public interface OptionMapper {
-    Option toModel(OptionEntity entity);
+    Option<?> toModel(OptionEntity<?> entity);
 
-    OptionEntity toEntity(Option model);
+    OptionEntity<?> toEntity(Option<?> model);
 }

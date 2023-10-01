@@ -1,0 +1,5 @@
+server:
+  port: 8080
+mongodb:
+  url: ${PSIQUE_MONGO_URL}
+  database: ${PSIQUE_MONGO_DB_NAME}
