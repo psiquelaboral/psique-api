@@ -1,9 +1,9 @@
 version: '3.7'
 services:
-  psiquelaborar-api:
+  psiquelaboral-api:
     build: .
-    container_name: psiquelaborar-api
-    image: psiquelaborar-api:v1
+    container_name: psiquelaboral-api
+    image: psiquelaboral-api:v1
     ports:
       - "8080:8080"
     restart: always
