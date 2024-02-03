@@ -1,10 +1,10 @@
-FROM maven:3.9.2-eclipse-temurin-17-alpine as build
+FROM maven:3.9.6-eclipse-temurin-21-alpine as build
 COPY /src /psique/src
 COPY pom.xml /psique/pom.xml
 WORKDIR /psique
 RUN mvn clean package
 
-FROM eclipse-temurin:17.0.7_7-jre-alpine
+FROM eclipse-temurin:21.0.2_13-jre-alpine
 WORKDIR /psique
 COPY --from=build /psique/target/*.jar /posdata-api.jar
 EXPOSE 8080
