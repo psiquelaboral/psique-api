@@ -1,4 +1,4 @@
-# Psique Laboral - API
+# 🔱 Psique Laboral - API
 
 ## Run on Local
 
