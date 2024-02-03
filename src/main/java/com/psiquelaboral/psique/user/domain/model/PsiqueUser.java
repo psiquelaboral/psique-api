@@ -21,6 +21,7 @@ public class PsiqueUser {
     private String email;
     private String password;
     private String picture;
+    @Builder.Default
     private List<Role> roles = new ArrayList<>();
     private LocalDateTime updatedAt;
     private LocalDateTime createdAt;

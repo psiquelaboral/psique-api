@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -33,32 +34,42 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-            .cors()
-            .and()
-            .csrf(AbstractHttpConfigurer::disable)
-            .exceptionHandling(handling -> handling
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-            )
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    HttpMethod.GET,
-                    "/quiz/employee/{id}",
-                    "/employee/{employeeId}"
-                ).hasAnyRole(ROLE_EMPLOYEE)
-                .requestMatchers("/answer/**").hasAnyRole(ROLE_EMPLOYEE)
-                .requestMatchers("/auth/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/user/signup").permitAll()
-                .requestMatchers("/user/**", "/employee/**", "/company/**").hasAnyRole(ROLE_RH)
-                .requestMatchers("/quiz/**").hasAnyRole(ROLE_RH)
-                .requestMatchers(HttpMethod.POST, "/quiz/**").hasAnyRole(ROLE_ADMIN)
-            )
-            .sessionManagement(management -> management
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-            .build();
+
+        //Set up the session management
+        http.sessionManagement(management -> management
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        );
+
+        //Disable un used features and set up CORS
+        http
+            .cors(Customizer.withDefaults())
+            .csrf(AbstractHttpConfigurer::disable);
+
+        // Exception handling
+        http.exceptionHandling(handling -> handling
+            .accessDeniedHandler(jwtAccessDeniedHandler)
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+        );
+
+        // JWT Filter
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // Secure routes
+        http.authorizeHttpRequests(auth -> auth
+            .requestMatchers(
+                HttpMethod.GET,
+                "/quiz/employee/{id}",
+                "/employee/{employeeId}"
+            ).hasAnyRole(ROLE_EMPLOYEE)
+            .requestMatchers("/answer/**").hasAnyRole(ROLE_EMPLOYEE)
+            .requestMatchers("/auth/**").permitAll()
+            .requestMatchers(HttpMethod.POST, "/user/signup").permitAll()
+            .requestMatchers("/user/**", "/employee/**", "/company/**").hasAnyRole(ROLE_RH)
+            .requestMatchers("/quiz/**").hasAnyRole(ROLE_RH)
+            .requestMatchers(HttpMethod.POST, "/quiz/**").hasAnyRole(ROLE_ADMIN)
+        );
+
+        return http.build();
     }
 
     @Bean
@@ -68,11 +79,11 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
+        http.getSharedObject(AuthenticationManagerBuilder.class)
             .userDetailsService(this.userDetailsService)
-            .passwordEncoder(this.passwordEncoder())
-            .and()
-            .build();
+            .passwordEncoder(this.passwordEncoder());
+
+        return http.getSharedObject(AuthenticationManagerBuilder.class).build();
     }
 
 }
