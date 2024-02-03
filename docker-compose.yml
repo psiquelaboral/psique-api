@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  psiquelaborar-api:
+    build: .
+    container_name: psiquelaborar-api
+    image: psiquelaborar-api:v1
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      PSIQUE_MONGO_URL: "mongodb://mongo:27017/psique"
+      PSIQUE_MONGO_DB_NAME: psique
+    networks:
+      - psiquelaboral
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - psiquelaboral-db:/data/db
+    networks:
+      - psiquelaboral
+networks:
+  psiquelaboral:
+volumes:
+  psiquelaboral-db:
