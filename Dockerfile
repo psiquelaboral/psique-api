@@ -1,12 +1,12 @@
 FROM maven:3.9.6-eclipse-temurin-21-alpine as build
-COPY /src /psique/src
-COPY pom.xml /psique/pom.xml
-WORKDIR /psique
+COPY /src /psiquelaboral/src
+COPY pom.xml /psiquelaboral/pom.xml
+WORKDIR /psiquelaboral
 RUN mvn clean package
 
 FROM eclipse-temurin:21.0.2_13-jre-alpine
-WORKDIR /psique
-COPY --from=build /psique/target/*.jar /posdata-api.jar
+WORKDIR /psiquelaboral
+COPY --from=build /psiquelaboral/target/*.jar /psiquelaboral-api.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/posdata-api.jar"]
+ENTRYPOINT ["java", "-jar", "/psiquelaboral-api.jar"]
 
