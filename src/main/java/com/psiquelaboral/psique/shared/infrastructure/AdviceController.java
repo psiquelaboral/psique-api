@@ -18,7 +18,6 @@ public class AdviceController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> generalError(Exception e, WebRequest request) {
-        e.printStackTrace();
         ProblemDetail response = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }

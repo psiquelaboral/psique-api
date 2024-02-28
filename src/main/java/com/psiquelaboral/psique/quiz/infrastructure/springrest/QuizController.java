@@ -2,17 +2,20 @@ package com.psiquelaboral.psique.quiz.infrastructure.springrest;
 
 import com.psiquelaboral.psique.quiz.application.IQuizService;
 import com.psiquelaboral.psique.quiz.domain.model.Quiz;
+import com.psiquelaboral.psique.shared.infrastructure.openapi.DocumentedRestController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@CrossOrigin
-@RestController
 @RequiredArgsConstructor
+@DocumentedRestController
 public class QuizController {
 
     private final IQuizService quizService;

@@ -4,18 +4,22 @@ import com.psiquelaboral.psique.auth.application.IAuthUserManager;
 import com.psiquelaboral.psique.auth.domain.model.AuthenticatedUser;
 import com.psiquelaboral.psique.employee.application.EmployeeService;
 import com.psiquelaboral.psique.employee.domain.model.Employee;
+import com.psiquelaboral.psique.shared.infrastructure.openapi.DocumentedRestController;
 import com.psiquelaboral.psique.user.domain.model.PsiqueUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@CrossOrigin
-@RestController
+
 @RequiredArgsConstructor
+@DocumentedRestController
 public class EmployeeController {
     private final EmployeeService employeeService;
     private final IAuthUserManager authUserManager;
