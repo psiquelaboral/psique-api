@@ -30,6 +30,12 @@ public class SecurityConfig {
     private static final String[] ROLE_EMPLOYEE = {"GOD", "ADMIN", "RH", "EMPLOYEE"};
     private static final String[] ROLE_RH = {"GOD", "ADMIN", "RH"};
     private static final String[] ROLE_ADMIN = {"GOD", "ADMIN"};
+    private static final String[] SWAGGER_WHITELIST = {
+        "/swagger-resources/**",
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+    };
 
 
     @Bean
@@ -56,6 +62,7 @@ public class SecurityConfig {
 
         // Secure routes
         http.authorizeHttpRequests(auth -> auth
+            .requestMatchers(SWAGGER_WHITELIST).permitAll()
             .requestMatchers(
                 HttpMethod.GET,
                 "/quiz/employee/{id}",

@@ -3,15 +3,16 @@ package com.psiquelaboral.psique.answer.infrastructure.springrest;
 import com.psiquelaboral.psique.answer.application.IAnswerService;
 import com.psiquelaboral.psique.answer.domain.model.Answer;
 import com.psiquelaboral.psique.answer.domain.model.Response;
+import com.psiquelaboral.psique.shared.infrastructure.openapi.DocumentedRestController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-@CrossOrigin
-@RestController
+
 @RequiredArgsConstructor
+@DocumentedRestController
 public class AnswerController {
 
     private final IAnswerService<String> answerService;
@@ -41,8 +42,8 @@ public class AnswerController {
         Answer answer = this.answerService.retrieveAnswer(quizId, employeeId);
         if (answer == null) {
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Answers not found with quizId and employeeId provided"
+                HttpStatus.NOT_FOUND,
+                "Answers not found with quizId and employeeId provided"
             );
         }
         return new ResponseEntity<>(answer, HttpStatus.OK);
