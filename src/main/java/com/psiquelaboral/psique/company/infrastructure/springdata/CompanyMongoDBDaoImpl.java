@@ -28,6 +28,12 @@ public class CompanyMongoDBDaoImpl implements ICompanyDao<String> {
     }
 
     @Override
+    public void update(Company company) {
+           CompanyEntity entity = this.companyMapper.toEntity(company);
+           this.mongoTemplate.save(entity);
+    }
+
+    @Override
     public Company getById(String companyId) {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(companyId));

@@ -8,10 +8,12 @@ public interface IPsiqueUserDao<K> {
     void create(PsiqueUser user);
 
     void update(PsiqueUser user);
-
+        //TODO CHANGE K TO STRING //
     PsiqueUser getByEmail(K email);
 
     PsiqueUser getById(K id);
 
     List<PsiqueUser> listAll();
 }
+
+
